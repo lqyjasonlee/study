@@ -36,9 +36,10 @@ class QuotesData:
         print(class_name, ':delete the quotes_data obj')
 
     def calculate_cc_return(self):
+        self.quotes = np.log(self.quotes)
         pt = self.quotes[: -1]
         pt_1 = self.quotes[1:]
-        cc_return = np.log(pt / pt_1)
+        cc_return = pt - pt_1
         cc_dates = self.dates[: -1]
         cc_length = self.length - 1
         return QuotesData('cc_return', cc_return, cc_dates, cc_length)
@@ -96,8 +97,8 @@ class QuotesData:
                 quotes_ = 0
             date_i = self.dates[i]
             date_ip1 = self.dates[i + 1]
+            quotes_ += self.quotes[i]
             if date_i.month == date_ip1.month:
-                quotes_ += self.quotes[i]
                 i += 1
             else:
                 month.append(date_i)
