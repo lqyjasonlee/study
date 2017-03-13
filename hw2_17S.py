@@ -98,14 +98,11 @@ class QuotesData:
             date_i = self.dates[i]
             date_ip1 = self.dates[i + 1]
             quotes_ += self.quotes[i]
-            if date_i.month == date_ip1.month:
-                i += 1
-            else:
+            if date_i.month != date_ip1.month:
                 month.append(date_i)
                 quotes.append(quotes_)
                 quotes_ = 0
-                i += 1
-                continue
+            i += 1
         return QuotesData('cc_return_monthly', quotes, month, len(month))
 
 
@@ -139,7 +136,7 @@ if __name__ == '__main__':
     cc_return_monthly = QuotesData('cc_return_monthly', cc_return_monthly.quotes[1:], cc_return_monthly.dates[1:], cc_return_monthly.length - 1)
     #print(cc_return_monthly.quotes[0: 5], cc_return_monthly.dates[0: 5], cc_return_monthly.length, cc_return_monthly.data_freq)
     #cc_return_monthly.plot_quotes_date()
-    #cc_return_monthly.plot_quotes_hist()
+    cc_return_monthly.plot_quotes_hist()
     #cc_return_monthly.plot_quotes_qqplot()
     #print(cc_return_monthly.calculate_quotes_stat())
     #print(cc_return_monthly.length)
