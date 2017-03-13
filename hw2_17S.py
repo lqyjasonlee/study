@@ -92,7 +92,7 @@ class QuotesData:
         month = []
         quotes = []
         i = 0
-        while i < self.length - 1:
+        while 1:
             if i == 0:
                 quotes_ = 0
             date_i = self.dates[i]
@@ -103,6 +103,11 @@ class QuotesData:
                 quotes.append(quotes_)
                 quotes_ = 0
             i += 1
+            if i == self.length - 1:
+                if date_i.month == date_ip1.month:
+                    month.append(date_i)
+                    quotes.append(quotes_)
+                break
         return QuotesData('cc_return_monthly', quotes, month, len(month))
 
 
@@ -124,7 +129,7 @@ if __name__ == '__main__':
     #print(cc_return.dates[0: 5], '\n', cc_return.quotes[0: 5])
 
     #cc_return.plot_quotes_date()
-    #cc_return.plot_quotes_hist()
+    cc_return.plot_quotes_hist()
     #cc_return.plot_quotes_qqplot()
     #print(cc_return.calculate_quotes_stat())
     #print(cc_return.length)
@@ -133,10 +138,10 @@ if __name__ == '__main__':
     '''Daily into monthly'''
     cc_return_monthly = cc_return.daily_to_monthly()
     '''delete the first month 2017-3'''
-    cc_return_monthly = QuotesData('cc_return_monthly', cc_return_monthly.quotes[1:], cc_return_monthly.dates[1:], cc_return_monthly.length - 1)
+    cc_return_monthly = QuotesData('cc_return_monthly', cc_return_monthly.quotes[1: -1], cc_return_monthly.dates[1: -1], cc_return_monthly.length - 2)
     #print(cc_return_monthly.quotes[0: 5], cc_return_monthly.dates[0: 5], cc_return_monthly.length, cc_return_monthly.data_freq)
     #cc_return_monthly.plot_quotes_date()
-    cc_return_monthly.plot_quotes_hist()
+    #cc_return_monthly.plot_quotes_hist()
     #cc_return_monthly.plot_quotes_qqplot()
     #print(cc_return_monthly.calculate_quotes_stat())
     #print(cc_return_monthly.length)
